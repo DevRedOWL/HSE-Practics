@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task1
 {
@@ -13,7 +9,7 @@ namespace Task1
         {
             string[] dirtycords; int[] cords;
             // Читаем файл
-            using (StreamReader sr = new StreamReader("INPUT.TXT")) //..\\..\\
+            using (StreamReader sr = new StreamReader("..\\..\\INPUT.TXT")) //..\\..\\
             {
                 cords = new int[Convert.ToInt32(sr.ReadLine().Trim(' '))]; // Задаем строку координат
                 dirtycords = sr.ReadLine().Split(' '); // Читаем координаты в string                                     
@@ -46,7 +42,7 @@ namespace Task1
             }
             // Console.WriteLine($"Максимум точек на минимальном отрезке: ({cords[FSEL]}:{cords[LSEL]}) [{laststreak}]");
             // Console.Read();
-            using (StreamWriter sw = new StreamWriter("OUTPUT.TXT")) // ..\\..\\
+            using (StreamWriter sw = new StreamWriter("..\\..\\OUTPUT.TXT")) // ..\\..\\
             {
                 sw.WriteLine($"{cords[FSEL]} {cords[LSEL]}");
             }
