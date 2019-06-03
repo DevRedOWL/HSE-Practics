@@ -13,39 +13,43 @@ namespace Task1
         {
             string[] dirtycords; int[] cords;
             // Читаем файл
-            using (StreamReader sr = new StreamReader("..\\..\\INPUT.TXT"))
+            using (StreamReader sr = new StreamReader("INPUT.TXT")) //..\\..\\
             {
                 cords = new int[Convert.ToInt32(sr.ReadLine().Trim(' '))]; // Задаем строку координат
                 dirtycords = sr.ReadLine().Split(' '); // Читаем координаты в string                                     
             }           
-            int thisstreak = 0, laststreak = 30000, FSEL = 0, LSEL = 0;
-            // Проходимся по файлу и назначаем элементам int
+            int thisstreak = 0, laststreak = 30001, FSEL = 0, LSEL = 0;
+            // Проходимся по массиву строк
             for (int i = 0; i < cords.Length; i++)
             {
+                // Заводим текущую позицию
                 cords[i] = Convert.ToInt32(dirtycords[i]);
-                Console.WriteLine($"[{i}] {cords[i]} | {thisstreak}");
-                //
+                // Заводим следующую позицию, если не уперлись в конец массива
+                if(i != cords.Length - 1)
+                    cords[i+1] = Convert.ToInt32(dirtycords[i+1]);
+                //Console.WriteLine($"[{i}] {cords[i]} | {thisstreak}");                
                 if (i != cords.Length - 1 && cords[i + 1] - cords[i] == 1) // Если расстояние от следующего до текущего - еденица
                 {                    
                     thisstreak++; // Продолжаем стрик
-                    Console.WriteLine($"Я продолжаю, на основании того, что {cords[i]} минус {cords[i - 1]} это еденица");
                 }
                 else // Если разрыв
                 {
                     if (thisstreak != 0 && thisstreak < laststreak) // Если текущий стрик не равен нулю и меньше максимального
                     {
                         laststreak = thisstreak;                    // Записываем в максимальный текущий
-                        LSEL = i; FSEL = i - thisstreak;            // Записываем позиции всего
+                        LSEL = i; FSEL = i - thisstreak;            // Записываем позиции начальной и конечной точек
                     }
-                    Console.WriteLine($"--------------{thisstreak}--------------");
-                    thisstreak = 0;
+                    //Console.WriteLine($"..:: Длина текущего отрезка: {thisstreak} ::..");
+                    thisstreak = 0; // Обнуляем текущий стрик
                 }
                                    
             }
-            Console.WriteLine($"Максимум точек на минимальном отрезке: {FSEL}-{LSEL} [{laststreak}]");
-            //    
-
-            Console.Read();
+            // Console.WriteLine($"Максимум точек на минимальном отрезке: ({cords[FSEL]}:{cords[LSEL]}) [{laststreak}]");
+            // Console.Read();
+            using (StreamWriter sw = new StreamWriter("OUTPUT.TXT")) // ..\\..\\
+            {
+                sw.WriteLine($"{cords[FSEL]} {cords[LSEL]}");
+            }
         }
     }
 }
