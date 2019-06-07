@@ -18,7 +18,9 @@ namespace Task2
             sr.Close();
 
             // Выполняем рекурсивную функцию
-            RecFunc(Devices);
+            if (Devices != 3)
+                RecFunc(Devices);
+            else Ways++;
 
             // Пишем в файл
             StreamWriter sw = new StreamWriter("..\\..\\output.txt");
@@ -51,5 +53,6 @@ namespace Task2
             else if (devs == 3) Ways++;
 
         }
+
     }
 }
