@@ -14,7 +14,7 @@ namespace Task3
             {
                 // Переменные аргумента и функции 
                 double a = 0, f = 0;
-                // Запрашиваем число
+                // Вводим число с клавиатуры
                 do Console.Write("Введите целое число: ");
                 while (!double.TryParse(Console.ReadLine(), out a));
                 // Основная логика
