@@ -1,0 +1,28 @@
+﻿<Window x:Class="Task5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task5"
+        mc:Ignorable="d"
+        Title="Задание 5" Height="321.429" Width="397.369" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!-- Сетка элементов матрицы -->
+        <Grid Grid.Column="0" x:Name="FieldsContainer">
+            <!-- Объявление сетки нам не нужно ведь есть генерация кодом -->
+            <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions></Grid.RowDefinitions>
+            
+        </Grid>
+
+        <!-- Сетка элементов управления -->
+        <Grid Grid.Column="1">
+            <Button x:Name="StartApp"  Content="УУУУ" Click="Button_Click"></Button>
+        </Grid>
+    </Grid>
+</Window>
