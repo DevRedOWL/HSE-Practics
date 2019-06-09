@@ -15,8 +15,8 @@ namespace Task3
                 // Переменные аргумента и функции 
                 double a = 0, f = 0;
                 // Вводим число с клавиатуры
-                do Console.Write("Введите целое число: ");
-                while (!double.TryParse(Console.ReadLine(), out a));
+                do Console.Write("Введите действительное число: ");
+                while (!double.TryParse(Console.ReadLine().Replace('.', ','), out a));
                 // Основная логика
                 if (a < 0) f = -a;                  // (-oo ; 0)
                 else if (a >= 0 && a <= 1) f = a;   // [0 ; 1]
