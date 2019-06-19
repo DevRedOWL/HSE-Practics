@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task5" mc:Ignorable="d" x:Name="MainForm"
-        Title="Задание 5 | Ввод исходной матрицы" Height="401.786" Width="531.298" ResizeMode="NoResize">
+        Title="Задание 5 | Ввод исходной матрицы" Height="401.786" Width="531.298" ResizeMode="NoResize" Background="AliceBlue">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,9 +27,9 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="ShowBase" Foreground="#293541" Background="#f3f4f9" Grid.Column="0" Content="Исходная матрица" Click="ShowBaseClick"></Button>
-            <Button x:Name="ShowGenerated" Foreground="#293541" Background="#f3f4f9" Grid.Column="1" Content="Обработать матрицу" Click="ShowGeneratedClick" ></Button>
-            <Button x:Name="Clear" Foreground="#293541" Background="#f3f4f9" Grid.Column="2" Content="Очистить поля" Click="ClearClick" ></Button>
+            <Button x:Name="ShowBase" Foreground="#293541" Background="#FFF4FAFF" Grid.Column="0" Content="Исходная матрица" Click="ShowBaseClick" Cursor="Hand"></Button>
+            <Button x:Name="ShowGenerated" Foreground="#293541" Background="#FFF4FAFF" Grid.Column="1" Content="Обработать матрицу" Click="ShowGeneratedClick" Cursor="Hand"></Button>
+            <Button x:Name="Clear" Foreground="#293541" Background="#FFF4FAFF" Grid.Column="2" Content="Очистить поля" Click="ClearClick" Cursor="Hand"></Button>
         </Grid>
 
     </Grid>

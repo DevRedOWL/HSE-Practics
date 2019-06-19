@@ -118,6 +118,7 @@ namespace Task5
                 foreach(MyCustomTextField MCTF in FieldsContainer.Children)
                 {
                     MCTF.Text = $"{MCTF.RealValue}";
+                    MCTF.ToolTip = null;
                 }
             }
             ShowGenerated.IsEnabled = true; // Переключаемся режим изменения матрицы
@@ -156,6 +157,12 @@ namespace Task5
                             (_TextFields[ThisFieldName] as MyCustomTextField).Text = "1"; /// Выставляем 1
                         else /// Иначе
                             (_TextFields[ThisFieldName] as MyCustomTextField).Text = "0"; /// Выставляем 0
+                        /// Добавляем всплывающую подсказку
+                        (_TextFields[ThisFieldName] as MyCustomTextField).ToolTip = new ToolTip()
+                        {
+                            Content = $"Текущий элемент: {(_TextFields[ThisFieldName] as MyCustomTextField).RealValue}" +
+                                    $"\nГлавная диагональ: {(_TextFields[$"B_{row}_{row}"] as MyCustomTextField).RealValue}"
+                        };
                     }
                 }
 
@@ -170,7 +177,10 @@ namespace Task5
         private void ClearClick(object sender, RoutedEventArgs e)
         {
             foreach(MyCustomTextField tb in FieldsContainer.Children)
-                tb.Text = "";
+            {
+                tb.Text = ""; // Обнуляем тексты
+                tb.ToolTip = null; // Обнуляем тултипы
+            }               
             ShowGenerated.IsEnabled = true; // Переключаемся в режим просмотра результата
             MainForm.Title = "Задание 5 | Ввод исходной матрицы";
         }
