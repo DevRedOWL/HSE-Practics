@@ -59,7 +59,7 @@ namespace Task6
             while (!int.TryParse(Console.ReadLine(), out This) || This < 3)
                 Console.Write("Длина последовательности не может быть меньше, чем 3: ");
             return This;
-        }
+        }       
 
     }
 }
