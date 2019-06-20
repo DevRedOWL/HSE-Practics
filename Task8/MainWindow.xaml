@@ -18,7 +18,7 @@
         </Grid>
 
         <!-- Правая панель -->
-        <DockPanel Grid.Column="1" LastChildFill="False">
+        <DockPanel Grid.Column="1" LastChildFill="True">
             <ComboBox Text="Выберите размер" Name="SizeList" DockPanel.Dock="Top" SelectionChanged="SizeList_SelectionChanged" IsEditable="True">
                 <TextBlock>3x3</TextBlock>
                 <TextBlock>4x4</TextBlock>
@@ -29,8 +29,11 @@
                 <TextBlock>9x9</TextBlock>
                 <TextBlock>26x26</TextBlock>
             </ComboBox>
-            <Button x:Name="SelectSize" DockPanel.Dock="Top" Content="Выбрать размер" Click="SelectSize_Click"></Button>
-            <Button DockPanel.Dock="Top" Content="333"></Button>
+            <Button x:Name="SelectIncedent" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Матрица инциденций" Click="SelectIncedent_Click"></Button>
+            <Button x:Name="SelectAdjacency" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Матрица смежностей" Click="SelectAdjacency_Click"></Button>
+            <Button x:Name="CheckIfTree" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Проверка графа" Click="CheckIfTree_Click"></Button>
+            <Label Background="#293541" Foreground="White" Padding="10">
+                <TextBlock x:Name="RightConsole" TextWrapping="Wrap">Здесь будет ответ</TextBlock></Label>
         </DockPanel>
 
     </Grid>
