@@ -118,7 +118,7 @@ namespace Task8
                             // Выравнивание
                             (Matrix[i, j] as ComboBox).VerticalContentAlignment = VerticalAlignment.Center;
                             (Matrix[i, j] as ComboBox).HorizontalContentAlignment = HorizontalAlignment.Center;
-                            // Выделение центрального, если не матрица инцидентности
+                            // Выделение центрального, если не матрица инциденций
                             if (i == j && !Incident) (Matrix[i, j] as ComboBox).Opacity = 0.6;
                             // Размер шрифта
                             (Matrix[i, j] as ComboBox).FontSize = 12;
@@ -143,7 +143,7 @@ namespace Task8
         }
         #endregion
 
-        #region Выбор матрицы инцеденций
+        #region Выбор матрицы инциденций
         private void SelectIncedent_Click(object sender, RoutedEventArgs e)
         {
             // Устанавливаем, что выбирали матрицу инциденций
