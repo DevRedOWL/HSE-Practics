@@ -51,8 +51,16 @@ namespace Task8
             GridPanel.RowDefinitions.Clear();
             GridPanel.ColumnDefinitions.Clear();
 
+            // Задаем размер матрицы
             SizeList.Text = $"{Rows}x{Columns}";
             Matrix = new FrameworkElement[Rows + 1, Columns + 1];
+
+            // Устанавливаем минимальный размер экрана
+            if (Rows >= 23) { MW.MinHeight = 720; MW.MinWidth = 1280; }
+            else if (Rows >= 17) { MW.MinHeight = 720; MW.MinWidth = 1080; }
+            else if (Rows >= 8) { MW.MinHeight = 600; MW.MinWidth = 900; }
+            else if (Rows >= 5) { MW.MinHeight = 600; MW.MinWidth = 900; }
+            else { MW.MinHeight = 400; MW.MinWidth = 650; }
 
             // Добавляем колонки
             for (int co = 0; co <= Columns; co++)
