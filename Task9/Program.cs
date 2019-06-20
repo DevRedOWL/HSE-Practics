@@ -12,11 +12,18 @@ namespace Task9
         static void Main(string[] args)
         {
             // Создание списка
-            MyCyclicalList<int> ML = new MyCyclicalList<int>() { 1, 2, 1, 3, 1, 4, 22, 1, 1 };
-            ML[10] = 1000; 
+            MyCyclicalList<int> ML = new MyCyclicalList<int>() { 1, 1, 3, 4, 5 };
 
             // Вывод элементов
-            for (int i = -9; i<10; i++)
+            for (int i = -5; i < 5; i++)
+                Console.Write(ML[i] + "; ");
+            Console.WriteLine("\n");
+
+            // Изменение элемента вне границ списка
+            ML[-10] = 555;
+
+            // Вывод элементов
+            for (int i = -5; i<5; i++)
                 Console.Write(ML[i]+"; ");
             Console.WriteLine("\n");
 
@@ -24,6 +31,14 @@ namespace Task9
             List<int> ss = ML.Find(1);
             foreach (int c in ss)
                 Console.Write(c+";");
+            Console.WriteLine("\n");
+
+            // Удаление элемента по индексу
+            ML.Remove(5);
+
+            // Вывод элементов
+            for (int i = -5; i < 5; i++)
+                Console.Write(ML[i] + "; ");
             Console.WriteLine("\n");
 
             Console.Read();

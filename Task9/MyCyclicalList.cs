@@ -48,31 +48,11 @@ namespace Task9
         // Индексатор циклического списка
         public T this[int i]
         {
-            get
-            {
-                // Если требуется элемент с конца, либо с отрицательным идексом
-                if ((i % Count == 0) || i < 1)
-                    return data[Count - (-i % Count) - 1];
-                // Если i превышает количество элементов
-                else if (i > Count)
-                    return data[(i % Count) - 1];
-                // Если i в пределе от 1 до Count
-                else
-                    return data[i - 1];
-            }
-            set
-            {
-                // Если требуется элемент с конца, либо с отрицательным идексом
-                if ((i % Count == 0) || i < 1)
-                    data[Count - (-i % Count) - 1] = value;
-                // Если i превышает количество элементов
-                else if (i > Count)
-                    data[(i % Count) - 1] = value;
-                // Если i в пределе от 1 до Count
-                else
-                    data[i - 1] = value;
-            }
+            get { return data[GetCyclicalIndex(i)]; }
+            set { data[GetCyclicalIndex(i)] = value; }
         }
+
+        // Метод получения индекса в циклическом списке
         public int GetCyclicalIndex(int index)
         {
             if ((index % Count == 0) || index < 1)
@@ -106,10 +86,12 @@ namespace Task9
             return FoundItems; // Возвращаем список, с индексами элементов, которые ищем
         }
 
-        // Удаление элемента
+        // Удаление элемента по индексу
         public void Remove(int index)
         {
-
+            for (int i = index - 1; i < Count - 1;)
+                data[i] = data[++i];
+            Count--;
         }
 
         #region Сравнение объектов
