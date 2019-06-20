@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1080">
+        Title="Проверка графа на связность и отсутствие циклов" Height="720" Width="1080">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="LeftPanel" Width="20*"></ColumnDefinition>
@@ -30,7 +30,7 @@
                 <TextBlock>26x26</TextBlock>
             </ComboBox>
             <Button x:Name="SelectIncedent" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Матрица инциденций" Click="SelectIncedent_Click"></Button>
-            <Button x:Name="SelectAdjacency" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Матрица смежностей" Click="SelectAdjacency_Click"></Button>
+            <Button x:Name="SelectAdjacency" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Матрица смежности" Click="SelectAdjacency_Click"></Button>
             <Button x:Name="CheckIfTree" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Проверка графа" Click="CheckIfTree_Click"></Button>
             <Button x:Name="RandomFill" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Заполнение полей" Click="RandomFill_Click"></Button>
             <Label Background="#293541" Foreground="White" Padding="10">

@@ -160,8 +160,10 @@ namespace Task5
                         /// Добавляем всплывающую подсказку
                         (_TextFields[ThisFieldName] as MyCustomTextField).ToolTip = new ToolTip()
                         {
-                            Content = $"Текущий элемент: {(_TextFields[ThisFieldName] as MyCustomTextField).RealValue}" +
-                                    $"\nГлавная диагональ: {(_TextFields[$"B_{row}_{row}"] as MyCustomTextField).RealValue}"
+                            Content = 
+                            (col == row) ? $"Элемент на главной диагонали: {(_TextFields[ThisFieldName] as MyCustomTextField).RealValue}" : 
+                            $"Текущий элемент: {(_TextFields[ThisFieldName] as MyCustomTextField).RealValue}" +
+                            $"\nГлавная диагональ: {(_TextFields[$"B_{row}_{row}"] as MyCustomTextField).RealValue}"
                         };
                     }
                 }

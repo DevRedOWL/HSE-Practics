@@ -56,10 +56,10 @@ namespace Task8
             Matrix = new FrameworkElement[Rows + 1, Columns + 1];
 
             // Устанавливаем минимальный размер экрана
-            if (Rows >= 23) { MW.MinHeight = 720; MW.MinWidth = 1280; }
-            else if (Rows >= 17) { MW.MinHeight = 720; MW.MinWidth = 1080; }
-            else if (Rows >= 8) { MW.MinHeight = 600; MW.MinWidth = 900; }
-            else if (Rows >= 5) { MW.MinHeight = 600; MW.MinWidth = 900; }
+            if (Columns >= 23) { MW.MinHeight = 720; MW.MinWidth = 1280; }
+            else if (Columns >= 17) { MW.MinHeight = 720; MW.MinWidth = 1080; }
+            else if (Columns >= 8) { MW.MinHeight = 600; MW.MinWidth = 900; }
+            else if (Columns >= 5) { MW.MinHeight = 600; MW.MinWidth = 900; }
             else { MW.MinHeight = 400; MW.MinWidth = 650; }
 
             // Добавляем колонки
@@ -217,8 +217,7 @@ namespace Task8
                     MatrixCol = Convert.ToInt32(SizeString[1].Replace(" ", ""));    // И столбцы
                     if (MatrixRow == MatrixCol && MatrixRow >= 2 && MatrixCol <= 26)    // Если 25 <= (Ряд == Колонка) >= 3
                     {
-                        Console.WriteLine($"Введено верно: {MatrixRow}x{MatrixCol}");      // Печатаем их значение
-                        Console.WriteLine($"[Смежность] Введенный размер матрицы корректен: 5x5");      // Печатаем их значение
+                        Console.WriteLine($"[Смежность] Введено верно: {MatrixRow}x{MatrixCol}");      // Печатаем их значение
                         RightConsole.Text = $"[Матрица смежности] Введенный размер матрицы корректен: {MatrixRow}x{MatrixCol}";                       
                     }
                     else
