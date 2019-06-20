@@ -24,12 +24,16 @@ namespace Task8
         public MainWindow()
         {
             InitializeComponent();
+            // Генерируем тестовую матрицу
+            GenerateMatrix(3, 2, true);
+            LastSelected = 1;
         }
         #endregion
 
         #region Поля класса
         private FrameworkElement[,] Matrix; /// Матрица
         private int LastSelected = 0;       /// Последний выбранный тип матрицы
+        private Random random = new Random();
         #endregion
 
         #region Действие при изменении размера матрицы
@@ -54,14 +58,14 @@ namespace Task8
             for (int co = 0; co <= Columns; co++)
                 GridPanel.ColumnDefinitions.Add(new ColumnDefinition()
                 {
-                    Width = new GridLength(1, GridUnitType.Star),
+                    Width = new GridLength(co == 0 && Columns<10 ? 1 : 3, GridUnitType.Star),       // Умная ширина шапки
                     Name = $"Col_{co}"
                 });
             // Добавляем ряды
             for (int ro = 0; ro <= Rows; ro++)
                 GridPanel.RowDefinitions.Add(new RowDefinition()
                 {
-                    Height = new GridLength(1, GridUnitType.Star),
+                    Height = new GridLength(ro == 0 && Columns < 10 ? 1 : 3, GridUnitType.Star),    // Умная высота шапки
                     Name = $"Row_{ro}"
                 });
 
@@ -309,7 +313,7 @@ namespace Task8
                     // Нет ли соединения между следующим, и тем, что идет в а, словарь списков A: точки, в которые можем попасть и только 1 путь
                     // типа как А-Б-Н => С может быть соеденина только с одной ведущей к А1
                     /// A  1  1  0
-                    /// B  0  1  0
+                    /// B  0  1  1
                     /// C  1  0  1
                 }
 
@@ -334,8 +338,11 @@ namespace Task8
         }
         #endregion
 
-        #region Метод проверки на предмет циклов и связности графа, определение, является ли граф деревом **/
+        #region Методы проверки на предмет циклов и связности графа, определение, является ли граф деревом
+        /// Строка посещенных точек
         string Visited = "";
+
+        /// Метод интерфейс, в который передаются связи точек графа
         private void CheckCyclesAndCoherency(Dictionary<int, List<int>> Connections)
         {
 
@@ -347,7 +354,6 @@ namespace Task8
                 Console.Write((char)('@' + kvp.Key)); // Выводим на экран
                 if(kvp.Value.Count != 0)
                 {
-                    //Visited.Add(kvp.Key);
                     GoingDeep(kvp.Key, kvp.Value[0], ref Connections); // Текущий ключ, Ключ в который входим, Коллекция
                 }
                 Visited += ";"; Console.WriteLine();
@@ -385,7 +391,7 @@ namespace Task8
                 case false:
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Данный граф является деревом, т.к. связный и циклов не обнаружено");
+                        Console.WriteLine("\nДанный граф является деревом, т.к. связный и циклов не обнаружено");
                         Console.ForegroundColor = ConsoleColor.White;
                         RightConsole.Text = "Данный граф является деревом, т.к. связный и циклов не обнаружено";
                     }
@@ -393,9 +399,9 @@ namespace Task8
                 case true:
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Данный граф НЕ ЯВЛЯЕТСЯ деревом, т.к. был обнаружен цикл");
+                        Console.WriteLine("\nДанный граф НЕ ЯВЛЯЕТСЯ деревом, т.к. был обнаружен цикл, либо петля");
                         Console.ForegroundColor = ConsoleColor.White;
-                        RightConsole.Text = "Данный граф НЕ ЯВЛЯЕТСЯ деревом, т.к. был обнаружен цикл";
+                        RightConsole.Text = "Данный граф НЕ ЯВЛЯЕТСЯ деревом, т.к. был обнаружен цикл, либо петля";
                     }
                     break;
             }
@@ -404,7 +410,7 @@ namespace Task8
             Console.WriteLine();
         }
 
-        #region Метод захода в точку
+        /// Метод захода в точку
         private void GoingDeep(int FromKey, int ThisKey, ref Dictionary<int, List<int>> Connections)
         {
             // Перекрестно удаляем возможные походы
@@ -412,13 +418,50 @@ namespace Task8
             // Добавляем в посещенные вершины эту
             Visited += ">" + (char)('@' + ThisKey); // Добавляем в посещенные // Visited.Add(ThisKey); 
             Console.Write(" > "+(char)('@'+ThisKey)); // Выводим на экран        
-            // Идем в глубь по всем точкам, в которые ведет эта
-            for (int i = 0; i < Connections[ThisKey].Count;)
+            // Идем в глубь по всем точкам, в которые ведет данная
+            for (int i = 0; i < Connections[ThisKey].Count;) // Не инкрементируем итератор, так как при удалении вершин, имеющих связь индекс смещается
                 if(i != FromKey) // 
                     GoingDeep(ThisKey, Connections[ThisKey][i], ref Connections);
         }
         #endregion
 
+        #region Умное заполнение графа
+        private void RandomFill_Click(object sender, RoutedEventArgs e)
+        {
+
+            // Не допускам создания более, чем 2 вершин на 1 ребре
+            int[] ColumnCount = new int[Matrix.GetLength(1)];
+
+            // Заполняем матрицу
+            for(int i = 1; i < Matrix.GetLength(0); i++)
+            {
+                for (int j = 1; j < Matrix.GetLength(1); j++)
+                {
+                    // Основные условия
+                    if (LastSelected == 1 && ColumnCount[j] == 2)           // Если матрица инциденций и уже есть 2 точки на ребре
+                        (Matrix[i, j] as MyDropdown).SelectedIndex = 0;     // Не ставим точку
+                    else                                                    // Иначе 
+                    {
+                        if(LastSelected != 2 && i == Matrix.GetLength(0)-1) // Если матрица инциденций и не хватает второй точки на ребре
+                            (Matrix[i, j] as MyDropdown).SelectedIndex = 1; // Ставим точку
+                        else
+                            (Matrix[i, j] as MyDropdown).SelectedIndex = random.Next(0, 2);         // Назначаем случайное значение полю
+                        if (LastSelected == 1 && (Matrix[i, j] as MyDropdown).SelectedIndex == 1)   // Если матрица инциденций и поставили 1
+                            ColumnCount[j]++;                                                       // Увеличиваем счет колонки
+                    }
+
+                    // Доп. условие: Матрица смежности
+                    if (LastSelected == 2)  // Задаем то же значение обратному полю                                                                       
+                        (Matrix[j, i] as MyDropdown).SelectedIndex = (Matrix[i, j] as ComboBox).SelectedIndex;
+
+                    // Доп. условие: Матрица инциденций
+                    if (LastSelected == 1)
+                        if(i == Matrix.GetLength(0) - 1 && ColumnCount[j] == 1) // Если мы идем по последней строчке и текущее ребро имеет 1 точку
+                            (Matrix[random.Next(1, Matrix.GetLength(0)-1), j] as MyDropdown).SelectedIndex = 1; // Задаем рандомной строчке еденицу
+
+                }
+            }
+        }
         #endregion
     }
 

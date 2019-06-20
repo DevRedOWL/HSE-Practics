@@ -20,18 +20,19 @@
         <!-- Правая панель -->
         <DockPanel Grid.Column="1" LastChildFill="True">
             <ComboBox Text="Выберите размер" Name="SizeList" DockPanel.Dock="Top" SelectionChanged="SizeList_SelectionChanged" IsEditable="True">
+                <TextBlock>3x2</TextBlock>
                 <TextBlock>3x3</TextBlock>
+                <TextBlock>4x3</TextBlock>
                 <TextBlock>4x4</TextBlock>
+                <TextBlock>5x4</TextBlock>
                 <TextBlock>5x5</TextBlock>
-                <TextBlock>6x6</TextBlock>
-                <TextBlock>7x7</TextBlock>
-                <TextBlock>8x8</TextBlock>
                 <TextBlock>9x9</TextBlock>
                 <TextBlock>26x26</TextBlock>
             </ComboBox>
             <Button x:Name="SelectIncedent" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Матрица инциденций" Click="SelectIncedent_Click"></Button>
             <Button x:Name="SelectAdjacency" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Матрица смежностей" Click="SelectAdjacency_Click"></Button>
             <Button x:Name="CheckIfTree" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Проверка графа" Click="CheckIfTree_Click"></Button>
+            <Button x:Name="RandomFill" DockPanel.Dock="Top" Background="#f33541" Padding="8" Content="Заполнение полей" Click="RandomFill_Click"></Button>
             <Label Background="#293541" Foreground="White" Padding="10">
                 <TextBlock x:Name="RightConsole" TextWrapping="Wrap">Здесь будет ответ</TextBlock></Label>
         </DockPanel>
