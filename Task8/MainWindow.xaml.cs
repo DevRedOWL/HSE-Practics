@@ -137,7 +137,7 @@ namespace Task8
             // Устанавливаем, что выбирали матрицу инциденций
             LastSelected = 1;
             // Делим состояние дропдауна по x 
-            string[] SizeString = SizeList.Text.Contains('x') ? SizeList.Text.Split('x') : SizeList.Text.Contains('х') ? SizeList.Text.Split('х') : new [] { "4", "6" };
+            string[] SizeString = SizeList.Text.Contains('x') ? SizeList.Text.Split('x') : SizeList.Text.Contains('х') ? SizeList.Text.Split('х') : new [] { "1", "1" };
             // Если разделилось нормально
             if (SizeString.Length == 2)
             {
@@ -147,19 +147,42 @@ namespace Task8
                 {
                     MatrixRow = Convert.ToInt32(SizeString[0].Replace(" ", ""));    // Делим на ряды
                     MatrixCol = Convert.ToInt32(SizeString[1].Replace(" ", ""));    // И столбцы
-                    if (MatrixRow >= 2 && MatrixRow <= 26 && MatrixCol >= 1 && MatrixCol <= 26 && MatrixCol >= MatrixRow - 1 && MatrixCol <= MatrixRow * 0.5 * (MatrixRow - 1))    // Если 25 <= (Ряд == Колонка) >= 3
+                    // Если введена верно
+                    if (MatrixRow >= 2 && MatrixRow <= 26 && MatrixCol >= 1 && MatrixCol <= 26 && MatrixCol >= MatrixRow - 1 && MatrixCol <= MatrixRow * 0.5 * (MatrixRow - 1))    // Если не шире 26 и не уже 2/1
                     {
-                        Console.WriteLine($"Матрица инциденции: {MatrixCol}x{MatrixRow}");      // Печатаем их значение
+                        Console.WriteLine($"[Инциденции] Введено верно: {MatrixRow}x{MatrixCol}");      // Печатаем их значение
+                        RightConsole.Text = $"[Матрица инциденций] Введенный размер матрицы корректен: ({MatrixRow}x{MatrixCol})";
                         GenerateMatrix(MatrixRow, MatrixCol, true);
                     }
-                    // 0.5*число вершин*(число вершин-1)
+                    // Если подходит перевернутая
+                    else if (MatrixRow >= 1 && MatrixRow <= 26 && MatrixCol >= 2 && MatrixCol <= 26 && MatrixRow >= MatrixCol - 1 && MatrixRow <= MatrixCol * 0.5 * (MatrixCol - 1))
+                    {
+                        Console.WriteLine($"[Инциденции] Перепутаны положения: {MatrixCol}x{MatrixRow}");      // Печатаем их значение
+                        RightConsole.Text = $"[Матрица инциденций] Матрица с введенным размером не может быть деревом, возможно, вы имелли ввиду: ({MatrixCol}x{MatrixRow})";
+                        GenerateMatrix(MatrixCol, MatrixRow, true);
+                    }
+                    // Если введенный размер не подходит
                     else
+                    {
+                        Console.WriteLine($"[Инциденции] Введена невозможная матрица, устанавливаем по умолчанию: 4x6");      // Печатаем их значение
+                        RightConsole.Text = "[Матрица инциденций] Матрица с введенным размером не может быть деревом, размер установлен по умолчанию: (4x6)";
                         GenerateMatrix(4, 6, true);
+                    }                    
                 }
+                // Если введена невалидная строка
                 catch (Exception)
                 {
+                    Console.WriteLine($"[Инциденции] Введено некорректное значение, устанавливаем по умолчанию: 4x6");      // Печатаем их значение
+                    RightConsole.Text = "[Матрица инциденций] Введено некорректное значение, размер установлен по умолчанию (4x6)";
                     GenerateMatrix(4, 6, true);
                 }
+            }
+            // Если введена невалидная строка
+            else
+            {
+                Console.WriteLine($"[Инциденции] Введено некорректное значение, устанавливаем по умолчанию: 4x6");      // Печатаем их значение
+                RightConsole.Text = "[Матрица инциденций] Введено некорректное значение, размер установлен по умолчанию (4x6)";
+                GenerateMatrix(4, 6, true);
             }
         }
         #endregion
@@ -170,7 +193,7 @@ namespace Task8
             // Устанавливаем, что выбирали матрицу смежности
             LastSelected = 2;
             // Делим состояние дропдауна по x 
-            string[] SizeString = SizeList.Text.Contains('x') ? SizeList.Text.Split('x') : SizeList.Text.Contains('х') ? SizeList.Text.Split('х') : new [] { "5", "5" };
+            string[] SizeString = SizeList.Text.Contains('x') ? SizeList.Text.Split('x') : SizeList.Text.Contains('х') ? SizeList.Text.Split('х') : new [] { "NO", "NO" };
             // Если разделилось нормально
             if (SizeString.Length == 2)
             {
@@ -183,36 +206,47 @@ namespace Task8
                     if (MatrixRow == MatrixCol && MatrixRow >= 2 && MatrixCol <= 26)    // Если 25 <= (Ряд == Колонка) >= 3
                     {
                         Console.WriteLine($"Введено верно: {MatrixRow}x{MatrixCol}");      // Печатаем их значение
+                        Console.WriteLine($"[Смежность] Введенный размер матрицы корректен: 5x5");      // Печатаем их значение
+                        RightConsole.Text = $"[Матрица смежности] Введенный размер матрицы корректен: {MatrixRow}x{MatrixCol}";                       
                     }
                     else
                     {
                         if (MatrixRow >= 2 && MatrixRow <= 26) // Если нам подходит ряд
                         {
                             MatrixCol = MatrixRow;
-                            Console.WriteLine($"Выбрали ряд: {MatrixRow}x{MatrixCol}");
+                            Console.WriteLine($"[Смежность] Матрица должна быть квадратной, устанавливаем по ряду: 5x5");      // Печатаем их значение
+                            RightConsole.Text = $"[Матрица смежности] Матрица должна быть квадратной, размер установлен по ряду: {MatrixRow}x{MatrixCol}";
                         }
                         else if (MatrixCol >= 2 && MatrixCol <= 26) // Если не подходит ряд, но подходит колонка
                         {
                             MatrixRow = MatrixCol;
-                            Console.WriteLine($"Выбрали колонку: {MatrixRow}x{MatrixCol}");
+                            Console.WriteLine($"[Смежность] Матрица должна быть квадратной, устанавливаем по колонке: 5x5");      // Печатаем их значение
+                            RightConsole.Text = $"[Матрица смежности] Матрица должна быть квадратной, размер установлен по колонке: {MatrixRow}x{MatrixCol}";
                         }
                         else // Если вообще ничего не подходит
                         {
                             MatrixCol = MatrixRow = 5;
-                            Console.WriteLine($"Выбрали автоматически: {MatrixRow}x{MatrixCol}");
+                            Console.WriteLine($"[Смежность] Порядок матрицы должен находиться в диапазоне от 2 до 26, устанавливаем по умолчанию: 5x5");      // Печатаем их значение
+                            RightConsole.Text = $"[Матрица смежности] Порядок матрицы должен находиться в диапазоне от 2 до 26, размер установлен по умолчанию: {MatrixRow}x{MatrixCol}";
                         }
                     }
                 }
                 catch (Exception) // Если было введено левое значение
                 {
+                    Console.WriteLine($"[Смежность] Введено некорректное значение, устанавливаем по умолчанию: 5x5)");      // Печатаем их значение
+                    RightConsole.Text = $"[Матрица смежности] Введено некорректное значение, устанавливаем по умолчанию: (5x5)";
                     MatrixCol = MatrixRow = 5;
-                    Console.WriteLine($"Введены вообще не числа: {MatrixRow}x{MatrixCol}");
                 }
                 GenerateMatrix(MatrixRow, MatrixCol, false);
             }
             // Иначе значение по умолчанию
             else
-                GenerateMatrix(5, 5, false);                
+            {
+                Console.WriteLine($"[Смежность] Введено некорректное значение, устанавливаем по умолчанию: 5x5");      // Печатаем их значение
+                RightConsole.Text = $"[Матрица смежности] Введено некорректное значение, устанавливаем по умолчанию: (5x5)";
+                GenerateMatrix(5, 5, false);
+            }
+                          
         }
         #endregion       
 
@@ -220,7 +254,11 @@ namespace Task8
         private void CheckIfTree_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Проверка, является ли граф деревом");
-            if (LastSelected == 1) // Если матрица инциденций
+            if(LastSelected == 0)
+            {
+                RightConsole.Text = "Сначала необходимо сгенерировать матрицу";
+            }
+            else if (LastSelected == 1) // Если матрица инциденций
             {          
                 int[] Conected = new int[Matrix.GetLength(1)];  // Массив количества вершин, соединенных одним ребром (едениц в столбце)
 
@@ -297,31 +335,90 @@ namespace Task8
         #endregion
 
         #region Метод проверки на предмет циклов и связности графа, определение, является ли граф деревом **/
-        private List<int> Visited = new List<int>();
+        string Visited = "";
         private void CheckCyclesAndCoherency(Dictionary<int, List<int>> Connections)
         {
-            foreach (KeyValuePair<int, List<int>> kvp in Connections)
-                for (int i = 0; i < Connections[kvp.Key].Count; i++)
-                    GoingDeep(i, Connections[kvp.Key][i], ref Connections); // Текущий ключ, Ключ в который входим, Коллекция
-            
-            //Console.WriteLine("\nПроверка связей еще раз");
-            //foreach (KeyValuePair<int, List<int>> kvp in Connections)
-            //{
-            //    Console.Write((char)('@' + kvp.Key) + ": ");
-            //    foreach (char val in kvp.Value)
-            //        Console.Write((char)('@' + val) + ", ");
-            //    Console.WriteLine();
-            //}
+
+            /// Проход по всем точкам
+            Console.WriteLine("\nВсе возможные пути: ");
+            foreach (KeyValuePair<int, List<int>> kvp in Connections) // Определяем точку входа
+            {
+                Visited += (char)('@' + kvp.Key); // Добавляем в посещенные
+                Console.Write((char)('@' + kvp.Key)); // Выводим на экран
+                if(kvp.Value.Count != 0)
+                {
+                    //Visited.Add(kvp.Key);
+                    GoingDeep(kvp.Key, kvp.Value[0], ref Connections); // Текущий ключ, Ключ в который входим, Коллекция
+                }
+                Visited += ";"; Console.WriteLine();
+                //break;
+            }
+
+            /// Делим строчки обходов 
+            List<List<string>> VisitedList = new List<List<string>>(); // Списки точек в удобном формате
+            for (int i = 0; i < Visited.Split(';').Length; i++)
+            {
+                VisitedList.Add(new List<string>());
+                for (int j = 0; j < Visited.Split(';')[i].Split('>').Length; j++)
+                {
+                    VisitedList[i].Add(Visited.Split(';')[i].Split('>')[j]);
+                }
+            }
+            Visited = ""; // Обнуляем список посещенных точек
+
+            /// Проверяем, не встречается ли в каждой строчке какое либо значение 2 раза  
+            bool ContainsMoreThanOne = false;
+            for (int i = 0; i < VisitedList.Count; i++)
+            {
+                List<string> HowMuch = new List<string>(); // Встречалось ли в строке
+                for (int j = 0; j < VisitedList[i].Count; j++)
+                {
+                    if (HowMuch.Contains(VisitedList[i][j]))    // Если уже встречалось
+                        ContainsMoreThanOne = true;             // Устанавливаем переменную как true - НЕ ДЕРЕВО, т.к. есть цикл
+                    else                                        // Иначе
+                        HowMuch.Add(VisitedList[i][j]);         // Указываем, что встречалось
+                }
+            }
+
+            switch (ContainsMoreThanOne)
+            {
+                case false:
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Данный граф является деревом, т.к. связный и циклов не обнаружено");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        RightConsole.Text = "Данный граф является деревом, т.к. связный и циклов не обнаружено";
+                    }
+                    break;
+                case true:
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Данный граф НЕ ЯВЛЯЕТСЯ деревом, т.к. был обнаружен цикл");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        RightConsole.Text = "Данный граф НЕ ЯВЛЯЕТСЯ деревом, т.к. был обнаружен цикл";
+                    }
+                    break;
+            }
+
+            // Добавляем еще 1 строку
+            Console.WriteLine();
         }
+
+        #region Метод захода в точку
         private void GoingDeep(int FromKey, int ThisKey, ref Dictionary<int, List<int>> Connections)
         {
-            // Перекрестно удаляем ссылки
-            Visited.Add(ThisKey); Console.WriteLine((char)('@'+ThisKey)+"-");
-            // Идем в глубь
-            for (int i = 0; i < Connections[ThisKey].Count; i++)
-                if(i != FromKey)
+            // Перекрестно удаляем возможные походы
+            Connections[FromKey].Remove(ThisKey); Connections[ThisKey].Remove(FromKey);
+            // Добавляем в посещенные вершины эту
+            Visited += ">" + (char)('@' + ThisKey); // Добавляем в посещенные // Visited.Add(ThisKey); 
+            Console.Write(" > "+(char)('@'+ThisKey)); // Выводим на экран        
+            // Идем в глубь по всем точкам, в которые ведет эта
+            for (int i = 0; i < Connections[ThisKey].Count;)
+                if(i != FromKey) // 
                     GoingDeep(ThisKey, Connections[ThisKey][i], ref Connections);
         }
+        #endregion
+
         #endregion
     }
 
