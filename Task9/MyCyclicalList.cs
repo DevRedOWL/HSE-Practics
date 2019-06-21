@@ -51,21 +51,28 @@ namespace Task9
         // Индексатор циклического списка
         public T this[int i]
         {
-            get { return data[GetCyclicalIndex(i)]; }
+            get { if (Count != 0) return data[GetCyclicalIndex(i)]; else throw new NullReferenceException(); }
             set { data[GetCyclicalIndex(i)] = value; }
         }
 
         // Метод получения индекса в циклическом списке
         private int GetCyclicalIndex(int index)
         {
-            if ((index % Count == 0) || index < 1)
-                return Count - (-index % Count) - 1;
-            // Если i превышает количество элементов
-            else if (index > Count)
-                return (index % Count) - 1;
-            // Если i в пределе от 1 до Count
+            if(Count != 0)
+            {
+                if ((index % Count == 0) || index < 1)
+                    return Count - (-index % Count) - 1;
+                // Если i превышает количество элементов
+                else if (index > Count)
+                    return (index % Count) - 1;
+                // Если i в пределе от 1 до Count
+                else
+                    return index - 1;
+            }
             else
-                return index - 1;
+            {
+                return 0;
+            }  
         }
 
         // Добавление элемента в список
@@ -92,9 +99,17 @@ namespace Task9
         // Удаление элемента по индексу
         public void Remove(int index)
         {
-            for (int i = index - 1; i < Count - 1;)
-                data[i] = data[++i];
-            Count--;
+            if(Count != 0)
+            {
+                for (int i = index - 1; i < Count - 1;)
+                    data[i] = data[++i];
+                Count--;
+                
+            }
+            else
+            {
+                return;
+            }
         }
 
         // Демонстрация списка
@@ -103,6 +118,7 @@ namespace Task9
             Console.WriteLine("Выберите способ просмотра списка путем нажатия клавиши:" +
                             "\n[1] - Просмотр отдельных элементов" +
                             "\n[2] - Просмотр элементов в диапазоне индексов" +
+                            "\n[3] - Просмотр всех элементов списка" +
                             "\n[0] - Выход без просмотра\n");
             switch (Console.ReadKey(true).KeyChar)
             {
@@ -126,8 +142,18 @@ namespace Task9
                         int From = Program.GetInt();
                         Console.Write("Введите индекс, до которого будут выведены элементы: ");
                         int To = Program.GetInt();
-                        // Учитываем, что To может быть меньше, чем From, Обрабатываем при помощи тернарного оператора
-                        for (int i = From; (From < To) ? (i <= To) : (i >= To); i += (From <= To)?1:-1) 
+                        if (From != To) // Если от не совпадает с до                       
+                            for (int i = From; (From < To) ? (i <= To) : (i >= To); i += (From <= To)?1:-1) // Если To меньше From - Идем обратно
+                                Console.Write($"[{i}]: {this[i]}; ");
+                        else // Если нужен 1 элемент, когда From и To равны
+                            Console.Write($"[{From}]: {this[To]}; ");
+                        Console.WriteLine("\nВыход из вывода элементов...\n");
+                    }
+                    break;
+                case '3':
+                    {
+                        Console.WriteLine("Все элементы списка: ");
+                        for(int i = 1; i<=Count; i++)
                             Console.Write($"[{i}]: {this[i]}; ");
                         Console.WriteLine("\nВыход из вывода элементов...\n");
                     }

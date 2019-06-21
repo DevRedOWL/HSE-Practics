@@ -11,21 +11,24 @@ namespace Task9
     {
         static void Main(string[] args)
         {
-            // Демонстрируем поиск по списку
-            // Демонстрируем удаление элемента, после чего показываем цикл
+            // Просмотр всех элементов и циклическое удаление
+            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("ВАЖНО: Нумерация элементов начинается с еденицы\n"); Console.ForegroundColor = ConsoleColor.White;
 
             /// Создание списка
+            Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("..:: Создание списка ::.."); Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Введите количество элементов: ");
             int Length = GetLength(); // Записываем длину
             MyCyclicalList<int> MCL = new MyCyclicalList<int>(Length);
 
             /// Заполнение списка
+            Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("..:: Заполнение списка ::.."); Console.ForegroundColor = ConsoleColor.White;
             Fill(ref MCL, Length);
 
             /// Вывод списка
             MCL.Show();
 
             /// Поиск элемента
+            Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("..:: Поиск элемента ::.."); Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Введите значение элемента, который необходимо найти: ");
             List<int> ss = MCL.Find(GetInt());
             Console.WriteLine("Список индексов, на которых находятся элементы с данным значением: ");
@@ -34,11 +37,18 @@ namespace Task9
             Console.WriteLine("\n");
 
             // Удаление элемента
-            Console.Write("Введите индекс элемента, который необходимо удалить: ");
-            MCL.Remove(GetInt());
+            Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("..:: Удаление элемента ::.."); Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Введите количество элементов, которые вы хотите удалить: ");
+            int DeleteTo = GetLength();
+            for (int i = 0; i < DeleteTo; i++)
+            {
+                Console.Write("Введите индекс элемента, который необходимо удалить: ");
+                MCL.Remove(GetInt());
+            }          
 
             // Вывод списка
-            MCL.Show();
+            try { MCL.Show(); }
+            catch (Exception) { Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("Кажется массив пустой"); }
 
             Console.Read();
         }
@@ -61,7 +71,7 @@ namespace Task9
             return This;
         }
  
-        /** Метод заполнения массива типа int **/
+        /** Метод заполнения списка типа int **/
         static void Fill(ref MyCyclicalList<int> MCL, int Length)
         {
             Console.WriteLine("Выберите способ заполнения списка:" +
@@ -77,7 +87,7 @@ namespace Task9
                             Console.Write($"Введите элемент с индексом [{i}]: ");
                             MCL.Add(GetInt());
                         }
-                        Console.WriteLine($"Список успешно заполнен {Length} элементами\n");
+                        Console.WriteLine($"Список успешно заполнен, количество элементов: {Length}\n");
                     }
                     break;
                 case '2':
@@ -88,13 +98,13 @@ namespace Task9
                             MCL.Add(random.Next(-50, 50));
                             Console.Write($"Элемент [{i}]: {MCL[i]}; \n");
                         }
-                        Console.WriteLine($"Список успешно заполнен {Length} элементами\n");
+                        Console.WriteLine($"Список успешно заполнен, количество элементов: {Length}\n");
                     }
                     break;
                 default:
                     {
                         MCL = new MyCyclicalList<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-                        Console.WriteLine("Выход из вывода элементов...\n");
+                        Console.WriteLine($"Список успешно заполнен, количество элементов: {Length}\n");
                     }
                     break;
             }
