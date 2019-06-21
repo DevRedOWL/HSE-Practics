@@ -21,7 +21,10 @@ namespace Task9
         // Конструктор с параметром для установки изначальной емкости
         public MyCyclicalList(int capacity)
         {
-            data = new T[capacity];
+            if (capacity > 0) // Исключительная ситуация3
+                data = new T[capacity];
+            else
+                capacity = 5;
         }
         // Конструктор с параметром для копирования из другого циклического списка
         public MyCyclicalList(MyCyclicalList<T> AnotherList)
@@ -53,7 +56,7 @@ namespace Task9
         }
 
         // Метод получения индекса в циклическом списке
-        public int GetCyclicalIndex(int index)
+        private int GetCyclicalIndex(int index)
         {
             if ((index % Count == 0) || index < 1)
                 return Count - (-index % Count) - 1;
@@ -93,6 +96,50 @@ namespace Task9
                 data[i] = data[++i];
             Count--;
         }
+
+        // Демонстрация списка
+        public void Show()
+        {
+            Console.WriteLine("Выберите способ просмотра списка путем нажатия клавиши:" +
+                            "\n[1] - Просмотр отдельных элементов" +
+                            "\n[2] - Просмотр элементов в диапазоне индексов" +
+                            "\n[0] - Выход без просмотра\n");
+            switch (Console.ReadKey(true).KeyChar)
+            {
+                case '1':
+                    {
+                        Console.WriteLine("Для выхода необходимо ввести любое значение, не являющееся целым числом");
+                        int Input = 0; bool Selected = false;
+                        do
+                        {
+                            Console.Write("Введите индекс элемента для отображения: ");
+                            Selected = int.TryParse(Console.ReadLine(), out Input);
+                            if (Selected)
+                                Console.WriteLine($"Элемент [{Input}]: {this[Input]}\n");
+                        }
+                        while (Selected);
+                        Console.WriteLine("Выход из вывода элементов...\n");
+                    }break;
+                case '2':
+                    {
+                        Console.Write("Введите индекс, от которого будут выведены элементы: ");
+                        int From = Program.GetInt();
+                        Console.Write("Введите индекс, до которого будут выведены элементы: ");
+                        int To = Program.GetInt();
+                        // Учитываем, что To может быть меньше, чем From, Обрабатываем при помощи тернарного оператора
+                        for (int i = From; (From < To) ? (i <= To) : (i >= To); i += (From <= To)?1:-1) 
+                            Console.Write($"[{i}]: {this[i]}; ");
+                        Console.WriteLine("\nВыход из вывода элементов...\n");
+                    }
+                    break;
+                default:
+                    {
+                        Console.WriteLine("Выход из вывода элементов...\n");
+                    }
+                    break;
+            }
+        }
+
 
         #region Сравнение объектов
         public override bool Equals(object obj)
