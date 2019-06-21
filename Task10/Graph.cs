@@ -47,11 +47,12 @@ namespace Task10
                     FirstEntries.Add(VList[i].Value, i);        // Добавляем в список
             }
 
+            Console.WriteLine("\nСписок вершин, в которые будут стянуты схожие:");
             // Выводим первые вхождения
             foreach(KeyValuePair<int, int> kvp in FirstEntries)
                 Console.Write($"{kvp.Key}:{kvp.Value+1}; ");
-            Console.WriteLine("\n");
 
+            Console.WriteLine("\n\nСписок изначальных связей вершин:");
             ShowArrows(); // Выводим стрелки
 
             /// Переназначаем исхящие стрелки в повторяющиеся точки
@@ -63,6 +64,7 @@ namespace Task10
                         // ИндексПервогоВхождения[СписокТочек[Значение точки, в которую ведет текущая точка]]
                         VList[i].Arrows[j] = FirstEntries[VList[VList[i].Arrows[j]].Value];              
             }
+            Console.WriteLine("Список связей после стягивания стрелок, ведущих в повторяющиеся вершины:");
             ShowArrows(); // Выводим стрелки
 
             /// Переназначаем повторяющиеся стрелки из одинаковых точек
@@ -75,6 +77,7 @@ namespace Task10
                         VList[i].Arrows.Remove(VList[i].Arrows[j]); // И удаляем из текущей точки данную стрелку
                     }
             }
+            Console.WriteLine("Список связей после стягивания стрелок, ведущих из повторяющиеся вершины:");
             ShowArrows(); // Выводим стрелки
 
             /// Очищаем от мусора
@@ -99,6 +102,7 @@ namespace Task10
                     VList.Remove(VList[i]); // Удаляем ее
                 else i++; // Только здесь инкрементируем итератор[0], т.к. при удалении список сдвигается
             }
+            Console.WriteLine("Список связей после удаления петель и повторных вершин:");
             ShowArrows(); // Выводим стрелки
 
         }

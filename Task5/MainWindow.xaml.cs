@@ -103,8 +103,8 @@ namespace Task5
         private void IfButtonPressed(object sender, TextCompositionEventArgs e)
         {
             // Сложное условие:  
-            // Игнорируем, если (char не цифра и не запятая) или (если вводится запятая но она уже есть) или (мы не на первой странице)
-            if ((!Char.IsDigit(e.Text, 0) && e.Text[0] != ',') || ((sender as TextBox).Text.Contains(',') && e.Text[0] == ',') || !ShowGenerated.IsEnabled)
+            // Игнорируем, если (char не цифра и не запятая/точка) или (если вводится запятая/точка но она уже есть) или (мы не на первой странице)
+            if ((!Char.IsDigit(e.Text, 0) && e.Text[0] != ',' && e.Text[0] != '.' && e.Text[0] != '-') || (((sender as TextBox).Text.Contains(',') || (sender as TextBox).Text.Contains('.')) && (e.Text[0] == ',' || e.Text[0] == '.')) || (e.Text[0] == '-' && (sender as MyCustomTextField).Text.Length != 0) || !ShowGenerated.IsEnabled)
                 e.Handled = true;           
             (sender as MyCustomTextField).Text = (sender as MyCustomTextField).Text.Replace(" ", "");       // Устанавливаем текст поля
             
@@ -139,7 +139,7 @@ namespace Task5
                         // Создаем переменную для названия
                         string ThisFieldName = $"B_{row}_{col}";
                         // Пытаемся запомнить последнее значение
-                        try { (_TextFields[ThisFieldName] as MyCustomTextField).RealValue = Convert.ToDouble((_TextFields[ThisFieldName] as MyCustomTextField).Text.Replace(" ", "")); }
+                        try { (_TextFields[ThisFieldName] as MyCustomTextField).RealValue = Convert.ToDouble((_TextFields[ThisFieldName] as MyCustomTextField).Text.Replace(" ", "").Replace(".", ",")); }
                         // Если возникает ошибка - обнуляем
                         catch (Exception) { (_TextFields[ThisFieldName] as MyCustomTextField).RealValue = 0; }                       
                     }
