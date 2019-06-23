@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Task8"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <!-- Тут должны быть стили -->
     </Application.Resources>
 </Application>
