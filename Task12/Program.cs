@@ -7,9 +7,6 @@ namespace Task12
     {
         static void Main(string[] args)
         {
-            //  10k
-            //  12952 
-            //  1573312 
             Console.WriteLine("Тестирование алгоритмов сортировки простым выбором и блочной сортировки");
 
             Console.WriteLine("Заполнение массивов...\n");
