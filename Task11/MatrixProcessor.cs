@@ -5,7 +5,7 @@ using System.IO;
 namespace Task11
 {
     // Класс обработчик матриц
-    public class MatrixProcessor
+    public class MatrixProcessor 
     {
         #region Поля класса
         public int[,] KeyMatrix; // Массив ключевой матрицы
