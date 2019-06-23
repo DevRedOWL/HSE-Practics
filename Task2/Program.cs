@@ -17,7 +17,7 @@ namespace Task2
             Devices = Convert.ToInt32(sr.ReadLine().Trim(' ')); 
             sr.Close();
 
-            // Выполняем рекурсивную функцию
+            // Выполняем рекурсивную функцию 
             if (Devices != 3)
                 RecFunc(Devices);
             else Ways++;
