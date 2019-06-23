@@ -17,7 +17,7 @@ namespace Task3
                 // Вводим число с клавиатуры
                 do Console.Write("Введите действительное число: ");
                 while (!double.TryParse(Console.ReadLine().Replace('.', ','), out a));
-                // Основная логика
+                // Основная логика 
                 if (a < 0) f = -a;                  // (-oo ; 0)
                 else if (a >= 0 && a <= 1) f = a;   // [0 ; 1]
                 else if (a > 1 && a <= 2) f = 1;    // (1 ; 2]
