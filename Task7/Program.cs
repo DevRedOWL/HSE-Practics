@@ -14,7 +14,7 @@ namespace Task7
 
             byte[,] XYZ = BoolFunction3nd(); // Матрица значение трех аргументов
             byte[,] C1_C2_C3_C4 = CreatePolynom(); // Матрица значений аргументов
-            string[] LinearFunctions = new string[16]; // Сами функции
+            string[] LinearFunctions = new string[16]; // Сами функции 
 
             for (int i = 0; i < 16; i++) // Формирование и вывод линейных функций 
             {
