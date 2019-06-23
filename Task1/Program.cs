@@ -70,7 +70,7 @@ namespace Task1
             //sw.Write(cords[FSEL] + " " + cords[LSEL]);
             #endregion
             sw.Write(TopI + " " + TopJ);
-            sw.Close();
+            sw.Close(); 
         }
     }
 }
