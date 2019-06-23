@@ -17,7 +17,7 @@ namespace Task6
             Console.Write("Введите второй член последовательности: "); Sequence.Add(GetDouble());
             Console.Write("Введите третий член последовательности: "); Sequence.Add(GetDouble());
 
-            // Заполняем последовательность
+            // Заполняем последовательность 
             for (int k = 3; k < Length; k++)
                 Sequence.Add((13 * Sequence[k - 1]) - (10 * Sequence[k - 2]) + Sequence[k - 3] );
 
