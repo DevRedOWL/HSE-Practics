@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Task9
 {
-    class Program // Поиск, Удаление, Ввод N элементов
+    class Program // Поиск, Удаление, Ввод N элементов 
     {
         static void Main(string[] args)
         {
