@@ -6,7 +6,7 @@ namespace Task12
 {   
     public class Sort
     {
-        public static int RelSelection, RelBlock, CheckSelection, CheckBlock;
+        public static int RelSelection, RelBlock, CheckSelection, CheckBlock; // Флаги для подсчета количества действий
 
         #region Сортировка простым выбором
         public static void Selection(ref int[] arr)
